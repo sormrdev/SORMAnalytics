@@ -482,3 +482,4 @@ $RECYCLE.BIN/
 .azure
 
 .containers
+.env

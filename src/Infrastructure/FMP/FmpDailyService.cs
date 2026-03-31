@@ -9,7 +9,6 @@ using Microsoft.Extensions.Options;
 
 using SORMAnalytics.Application.Common.Interfaces;
 using SORMAnalytics.Domain.Entities;
-using SORMAnalytics.Infrastructure.AlphaVantage;
 using SORMAnalytics.Infrastructure.Exceptions;
 
 namespace SORMAnalytics.Infrastructure.FMP;

@@ -18,7 +18,6 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 using SORMAnalytics.Application.Common.Interfaces;
-using SORMAnalytics.Infrastructure.AlphaVantage;
 using SORMAnalytics.Infrastructure.Data;
 using SORMAnalytics.Infrastructure.FMP;
 
@@ -41,11 +40,6 @@ public static class DependencyInjection
            .UseNpgsql(connString,
                       npsqlOptions => npsqlOptions.MigrationsHistoryTable(HistoryRepository.DefaultTableName, Schemas.Identity))
            .UseSnakeCaseNamingConvention());
-
-        builder.Services.AddOptions<AlphaVantageOptions>()
-            .BindConfiguration(AlphaVantageOptions.SectionName)
-            .Validate(options => !string.IsNullOrEmpty(options.ApiKey), "AlphaVantage API Key is missing!")
-            .ValidateOnStart();
 
         builder.Services.AddOptions<FmpOptions>()
             .BindConfiguration(FmpOptions.SectionName);
