@@ -484,5 +484,5 @@ $RECYCLE.BIN/
 .containers
 .env
 
-appsettings.*.json
-appsettings.json
+.appsettings.*.json
+.appsettings.json

@@ -44,7 +44,6 @@ public static class DependencyInjection
         builder.Services.AddOptions<FmpOptions>()
             .BindConfiguration(FmpOptions.SectionName);
 
-        //builder.Services.AddHttpClient<IPriceCandleProvider, AlphaVantageSeriesService>();
         builder.Services.AddHttpClient<IPriceCandleProvider, FmpDailyService>();
 
         builder.Services.AddTransient<ITokenProvider, TokenProvider>();
