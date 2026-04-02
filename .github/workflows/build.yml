@@ -9,6 +9,10 @@ on:
 env:
     IMAGE_NAME: sormanalytics
     IMAGE_TAG: ${{ github.sha }}
+  
+permissions:
+  contents: read
+  packages: write
 
 jobs:
     build-and-push:
