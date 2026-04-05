@@ -5,4 +5,4 @@ Recommend using POSTMAN attached in this repo to interact with endpoints.
 
 Project is in active development stage.
 
-There is no any documentation for this product but will in future.
+There is no any documentation for this product but will be in future.
