@@ -1,0 +1,273 @@
+{
+  "info": {
+    "_postman_id": "9768acf4-a28d-486b-ae22-ed85cbcd5961",
+    "name": "Sorm Analytics",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49921383",
+    "_collection_link": "https://go.postman.co/collection/49921383-9768acf4-a28d-486b-ae22-ed85cbcd5961?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Batch Analysis",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/xml-dtd",
+            "type": "text",
+            "disabled": true
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"sort\": \"timestamp ASC,\",\r\n  \"symbols\": \"AAPL\",\r\n  \"condition\": {\r\n    \"fromDate\": \"2021-01-01\",\r\n    \"toDate\": \"2022-10-31\",\r\n    \"rules\": [\r\n        {\r\n        \"firstValueDayOffset\": 0,\r\n        \"secondValueDayOffset\": 0,\r\n        \"firstValue\": 0,\r\n        \"secondValue\": 1,\r\n        \"comparisonOperator\": 1\r\n        }\r\n    ]\r\n  }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/Analysis",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "Analysis"
+          ],
+          "query": [
+            {
+              "key": "body[1].comparisonOperator",
+              "value": "LessThan",
+              "type": "text",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Candle",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/Assets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "Assets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get price candles",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "Get available assets",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/Assets/AvailableAssets",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "Assets",
+            "AvailableAssets"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Register",
+      "protocolProfileBehavior": {
+        "disabledSystemHeaders": {
+          "accept": true
+        }
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"jokovic3@gmail.com\",\r\n    \"name\": \"Eanasir\",\r\n    \"password\": \"Bibabobo123$\",\r\n    \"confirmPassword\": \"Bibabobo123$\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get user by id",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/Users?id=u_019d10ff-4e39-7072-b937-fa75e46c8599",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "Users"
+          ],
+          "query": [
+            {
+              "key": "id",
+              "value": "u_019d10ff-4e39-7072-b937-fa75e46c8599"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"email\": \"jokovic@gmail.com\",\r\n    \"password\": \"123aAPoolpop$\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Refresh token",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"refreshToken\": \"GhkCSSelFB9450LhsGgr+lOB5v8e/E0B9NoKP0Au9aI=\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/refresh",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "refresh"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get current user",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJTb3JtQW5hbHl0aWNzLmFwcCIsImlzcyI6IlNvcm1BbmFseXRpY3MuYXBpIiwiZXhwIjoxNzc1NDI3MTE4LCJzdWIiOiJkNTg3OTA1NS03Y2E2LTQ0OGYtOGNlYS1lY2JlOWFmY2M4MDIiLCJlbWFpbCI6Impva292aWMzM0BnbWFpbC5jb20iLCJpYXQiOjE3NzU0MjUzMTgsIm5iZiI6MTc3NTQyNTMxOH0.DGMSnvvXCxKtOAAmPsOcLvpaU6t7azgeXn0uo7w3vCw",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
