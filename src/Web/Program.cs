@@ -1,9 +1,13 @@
 using Carter;
 
+using Hangfire;
+
 using Scalar.AspNetCore;
 
 using SORMAnalytics.Infrastructure.Data.Extensions;
 using SORMAnalytics.Web;
+
+using Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +15,8 @@ builder.AddApplicationServices();
 builder.AddInfrastructureServices();
 builder.AddWebServices();
 builder.AddAuthenticationServices();
+
+builder.AddHangfire();
 
 builder.Services.AddCors(options =>
 {
@@ -37,6 +43,8 @@ else
     app.UseHsts();
 }
 
+app.UseHangfireDashboard();
+
 app.UseExceptionHandler(options => { });
 
 app.UseCors("AllowFrontend");
@@ -48,5 +56,7 @@ app.UseOutputCache();
 
 app.MapEndpoints();
 app.MapCarter();
+
+app.Services.ScheduleJobs();
 
 app.Run();
