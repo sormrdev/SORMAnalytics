@@ -44,16 +44,16 @@ public class FmpDailyService : IPriceCandleProvider
 
         foreach (var candle in avResponse!)
         {
-            result.Add(new PriceCandle
-            {
-                Symbol = symbol,
-                Open = candle.Open01,
-                High = candle.High02,
-                Low = candle.Low03,
-                Close = candle.Close04,
-                Volume = candle.Volume05,
-                Timestamp = DateOnly.Parse(candle.Date06, CultureInfo.InvariantCulture)
-            });
+            result.Add(PriceCandle.Create
+            (
+                symbol,
+                candle.Open01,
+                candle.High02,
+                candle.Low03,
+                candle.Close04,
+                candle.Volume05,
+                DateOnly.Parse(candle.Date06, CultureInfo.InvariantCulture)
+            ));
         }
         return result;
     }

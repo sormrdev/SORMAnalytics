@@ -43,6 +43,9 @@ else
     app.UseHsts();
 }
 
+await app.SeedRolesAsync();
+await app.SeedAdminAsync();
+
 app.UseHangfireDashboard();
 
 app.UseExceptionHandler(options => { });

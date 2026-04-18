@@ -31,6 +31,11 @@ public class TokenProvider(IOptions<JwtAuthOptions> options) : ITokenProvider
             new(JwtRegisteredClaimNames.Email, tokenRequest.Email),
         ];
 
+        claims.AddRange(
+           tokenRequest.Roles.Select(role =>
+               new Claim("role", role)));
+
+
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),

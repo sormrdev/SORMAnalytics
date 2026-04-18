@@ -1,9 +1,7 @@
 using System.Dynamic;
-using System.Net.Http.Headers;
 
 using Carter.Response;
 
-using Microsoft.Net.Http.Headers;
 using Microsoft.AspNetCore.Http.HttpResults;
 
 using Microsoft.AspNetCore.Mvc;
@@ -23,8 +21,9 @@ public class Assets : EndpointGroupBase
     public override void Map(RouteGroupBuilder groupBuilder)
     {
         groupBuilder.MapGet(GetPriceCandle);
-        groupBuilder.MapGet(GetAvailableAssets, "AvailableAssets").CacheOutput().RequireAuthorization();
-        groupBuilder.MapPost(CreatePriceCandles).CacheOutput();
+        groupBuilder.MapGet(GetAvailableAssets, "AvailableAssets").CacheOutput();
+        groupBuilder.MapPost(CreatePriceCandles).RequireAuthorization(policy =>
+            policy.RequireRole("Admin"));
     }
     public async Task GetPriceCandle(
          LinkService linkService,

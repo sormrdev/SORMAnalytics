@@ -43,8 +43,9 @@ public class LoginUserHandler : IRequestHandler<LoginUser, IResult>
         {
             return Results.Unauthorized();
         }
-        
-        var tokenRequest = new TokenRequest(identityUser.Id, identityUser.Email!);
+
+        var roles = await _userManager.GetRolesAsync(identityUser);
+        var tokenRequest = new TokenRequest(identityUser.Id, identityUser.Email!, roles);
         var accessTokens = _tokenProvider.Create(tokenRequest);
 
         var refreshToken = new RefreshToken

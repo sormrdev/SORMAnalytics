@@ -57,14 +57,16 @@ public class RegisterUserHandler : IRequestHandler<RegisterUser, IResult>
             return Results.Problem(statusCode: StatusCodes.Status400BadRequest, detail: "User registration failed", extensions: extensions);
         }
 
-        User user = request.registerUserDto.ToEntity();
-        user.IdentityId = identityUser.Id;
+        await _userManager.AddToRoleAsync(identityUser, "User");
+
+        User user = request.registerUserDto.ToEntity(identityUser.Id);
 
         _applicationContext.Users.Add(user);
 
         await _applicationContext.SaveChangesAsync(cancellationToken);
 
-        TokenRequest tokenRequest = new(identityUser.Id, identityUser.Email);
+        var roles = await _userManager.GetRolesAsync(identityUser);
+        TokenRequest tokenRequest = new(identityUser.Id, identityUser.Email, roles);
         var accessTokens = _tokenProvider.Create(tokenRequest);
         
         var refreshToken = new RefreshToken

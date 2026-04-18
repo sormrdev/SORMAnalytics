@@ -5,14 +5,14 @@ using Domain.Entities;
 namespace Application.DTOs.Users;
 public static class UserMappings
 {
-    public static User ToEntity(this RegisterUserDto dto)
+    public static User ToEntity(this RegisterUserDto dto, string IdentityId)
     {
-        return new User
-        {
-            Id = $"u_{Guid.CreateVersion7()}",
-            Name = dto.Name,
-            Email = dto.Email,
-            CreatedAt = DateTime.UtcNow
-        };
+        return User.Create
+        (
+            $"u_{Guid.CreateVersion7()}",
+            dto.Name,
+            dto.Email,
+            IdentityId
+        );
     }
 }

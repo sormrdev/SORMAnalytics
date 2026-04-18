@@ -54,7 +54,9 @@ public class RefreshTokensHandler : IRequestHandler<RefreshTokens, IResult>
             return TypedResults.Unauthorized();
         }
 
-        var tokenRequest = new TokenRequest(refreshToken.User.Id, refreshToken.User.Email!);
+        var roles = await _userManager.GetRolesAsync(refreshToken.User);
+
+        var tokenRequest = new TokenRequest(refreshToken.User.Id, refreshToken.User.Email!, roles);
         var accessTokens = _tokenProvider.Create(tokenRequest);
 
         refreshToken.Token = accessTokens.RefreshToken;
