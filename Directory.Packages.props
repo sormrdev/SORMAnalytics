@@ -39,6 +39,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageVersion>
+    <PackageVersion Include="Swashbuckle.AspNetCore" Version="10.1.7" />
+    <PackageVersion Include="Swashbuckle.AspNetCore.Filters" Version="10.0.1" />
     <PackageVersion Include="System.Linq.Dynamic.Core" Version="1.7.1" />
   </ItemGroup>
 </Project>

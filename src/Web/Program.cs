@@ -1,11 +1,15 @@
 using Carter;
 
+using System.Reflection;
+
 using Hangfire;
 
 using Scalar.AspNetCore;
 
 using SORMAnalytics.Infrastructure.Data.Extensions;
 using SORMAnalytics.Web;
+
+using Swashbuckle.AspNetCore.Filters;
 
 using Web.Services;
 
@@ -15,6 +19,14 @@ builder.AddApplicationServices();
 builder.AddInfrastructureServices();
 builder.AddWebServices();
 builder.AddAuthenticationServices();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddOpenApi();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.ExampleFilters();
+});
+builder.Services.AddSwaggerExamplesFromAssemblies(Assembly.GetExecutingAssembly());
 
 builder.AddHangfire();
 
@@ -32,8 +44,10 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    //// Access this at http://localhost:PORT/scalar/v1
     app.MapOpenApi();
-    // Access this at http://localhost:PORT/scalar/v1
+    app.UseSwagger();
+    app.UseSwaggerUI();
     app.MapScalarApiReference();
     await app.ApplyMigrationsAsync();
 }
