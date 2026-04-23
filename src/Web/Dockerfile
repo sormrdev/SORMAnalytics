@@ -10,16 +10,19 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
+
 COPY ["Directory.Packages.props", "."]
 COPY ["Directory.Build.props", "."]
 COPY ["src/Web/Web.csproj", "src/Web/"]
 COPY ["src/Application/Application.csproj", "src/Application/"]
 COPY ["src/Domain/Domain.csproj", "src/Domain/"]
 COPY ["src/Infrastructure/Infrastructure.csproj", "src/Infrastructure/"]
+
 RUN dotnet restore "./src/Web/Web.csproj"
+
 COPY . .
-WORKDIR "/src/src/Web"
-RUN dotnet build "./Web.csproj" -c $BUILD_CONFIGURATION -o /app/build /p:RunAnalyzers=false
+
+RUN dotnet build "src/Web/Web.csproj" -c $BUILD_CONFIGURATION -o /app/build /p:RunAnalyzers=false
 
 # This stage is used to publish the service project to be copied to the final stage
 FROM build AS publish
