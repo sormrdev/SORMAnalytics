@@ -1,4 +1,4 @@
-name: Build
+﻿name: Build
 
 on:
     workflow_dispatch:
@@ -15,8 +15,24 @@ permissions:
   packages: write
 
 jobs:
+
     build-and-push:
         runs-on: ubuntu-latest
+
+        services:
+          db: 
+            image: postgres:16  
+            env:
+              POSTGRES_PASSWORD: postgres
+              POSTGRES_USER: postgres
+              POSTGRES_DB: SORMAnalyticsDb
+            ports:
+              - 5432:5432
+            options: >-
+              --health-cmd pg_isready
+              --health-interval 10s
+              --health-timeout 5s
+              --health-retries 5
 
         steps:
             - name: Checkout code
