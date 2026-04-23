@@ -5,4 +5,23 @@ Recommend using POSTMAN attached in this repo to interact with endpoints.
 
 Project is in active development stage.
 
-There is no any documentation for this product but will be in future.
+## Configuration and secrets
+
+This project follows standard ASP.NET configuration precedence:
+
+1. `appsettings.json` (committed, non-secret defaults)
+2. `appsettings.{Environment}.json` (local overrides)
+3. User secrets in development
+4. Environment variables (highest priority)
+
+Secrets must not be committed to git and are injected at runtime.
+
+### Local run with Docker Compose
+
+1. Copy `.env.example` to `.env`
+2. Fill real values (`Jwt__Key`, `FmpOptions__ApiKey`, etc.)
+3. Run:
+
+```bash
+docker compose up --build
+```

@@ -1,4 +1,5 @@
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 
@@ -47,6 +48,8 @@ public static class DependencyInjection
 
         builder.Services.AddOptions<FmpOptions>()
             .BindConfiguration(FmpOptions.SectionName);
+
+        builder.Services.Configure<AdminBootstrapOptions>(builder.Configuration.GetSection(AdminBootstrapOptions.SectionName));
 
         builder.Services.AddHttpClient<IPriceCandleProvider, FmpDailyService>();
 
@@ -117,17 +120,25 @@ public static class DependencyInjection
     {
         using var scope = app.Services.CreateScope();
 
-        var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+        var bootstrapOptions = scope.ServiceProvider.GetRequiredService<IOptions<AdminBootstrapOptions>>().Value;
         var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-        var email = config["AdminBootstrap:Email"];
+        if (!bootstrapOptions.Enabled)
+            return;
 
+        var email = bootstrapOptions.Email;
         if (string.IsNullOrWhiteSpace(email))
+            return;
+
+        if (!MailAddress.TryCreate(email, out _))
             return;
 
         var user = await userManager.FindByEmailAsync(email);
 
-        if (user != null && !await userManager.IsInRoleAsync(user, "Admin"))
+        if (user == null)
+            return;
+
+        if (!await userManager.IsInRoleAsync(user, "Admin"))
         {
             await userManager.AddToRoleAsync(user, "Admin");
         }

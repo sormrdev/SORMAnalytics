@@ -30,10 +30,6 @@ RUN dotnet publish "./Web.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:Use
 FROM base AS final
 ENV DOTNET_RUNNING_IN_CONTAINER=true
 
-ARG APP_SETTINGS_JSON
-
-RUN echo "$APP_SETTINGS_JSON" > /app/appsettings.Production.json
-
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Web.dll"]

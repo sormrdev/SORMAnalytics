@@ -4,12 +4,22 @@ services:
     build:
       context: .
       dockerfile: src/Web/Dockerfile
-    env_file:
-      - .env
     ports:
       - 5000:8080
       - 5001:8081
     environment:
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT:-Development}
+      - ConnectionStrings__SORMADb=${ConnectionStrings__SORMADb:-Host=SORMAnalytics.database;Database=SORMAnalyticsDb;Username=postgres;Password=postgres}
+      - Jwt__Issuer=${Jwt__Issuer:-SORMAnalytics}
+      - Jwt__Audience=${Jwt__Audience:-SORMAnalytics.app}
+      - Jwt__Key=${Jwt__Key:-dev-only-change-me-to-a-long-random-secret-key}
+      - Jwt__ExpirationInMinutes=${Jwt__ExpirationInMinutes:-30}
+      - Jwt__RefreshTokenExpirationInDays=${Jwt__RefreshTokenExpirationInDays:-7}
+      - FmpOptions__ApiKey=${FmpOptions__ApiKey:-demo}
+      - FmpOptions__BaseUrl=${FmpOptions__BaseUrl:-https://financialmodelingprep.com/stable/}
+      - FmpOptions__DailyQuery=${FmpOptions__DailyQuery:-historical-price-eod/dividend-adjusted}
+      - AdminBootstrap__Enabled=${AdminBootstrap__Enabled:-true}
+      - AdminBootstrap__Email=${AdminBootstrap__Email:-admin@gmail.com}
     #  - OTEL_EXPORTER_OTLP_ENDPOINT=http://SORMAnalytics.seq:5341/ingest/otlp
     #  - OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://SORMAnalytics.aspire-dashboard:18889
@@ -43,7 +53,3 @@ services:
       - "5433:5432"
     volumes:
       - ./.containers/SORMAnalytics_data:/var/lib/postgresql/data
-
-volumes:
-  postgres_data:
-    

@@ -486,3 +486,6 @@ $RECYCLE.BIN/
 
 appsettings.*.json
 appsettings.json
+!.env.example
+!src/Web/appsettings.json
+!src/Web/appsettings.Development.json.example
