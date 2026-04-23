@@ -14,8 +14,6 @@ This project follows standard ASP.NET configuration precedence:
 3. User secrets in development
 4. Environment variables (highest priority)
 
-Secrets must not be committed to git and are injected at runtime.
-
 ### Local run with Docker Compose
 
 1. Copy `.env.example` to `.env`
